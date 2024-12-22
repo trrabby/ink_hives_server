@@ -8,8 +8,6 @@ import { USER_ROLE } from './user.constant';
 
 const router = express.Router();
 
-router.get('/', auth(USER_ROLE.admin), UserControllers.AllUsers);
+router.patch('/users/:userId/block', auth(USER_ROLE.admin), UserControllers.blockAnUser);
 
-router.get('/:userId', auth(USER_ROLE.admin, USER_ROLE.user), UserControllers.getAnUser);
-
-export const UserRoutes = router;
+export const adminRoutes = router;

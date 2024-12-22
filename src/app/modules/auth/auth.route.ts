@@ -4,8 +4,16 @@ import { AuthValidation } from './auth.validation';
 import validateRequest from '../../MiddleWares/validateRequest';
 import { USER_ROLE } from '../users/user.constant';
 import auth from '../../MiddleWares/auth';
+import { UserValidation } from '../users/user.validation';
+import { UserControllers } from '../users/user.controller';
 
 const router = express.Router();
+
+router.post(
+  '/register',
+  validateRequest(UserValidation.userValidationSchema),
+  UserControllers.createUser,
+);
 
 router.post(
   '/login',

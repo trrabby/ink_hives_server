@@ -36,7 +36,39 @@ const findAllUsers = async (query: Record<string, unknown>) => {
   return result;
 };
 
+const getAnUser = async (email: string) => {
+  const result = await UserModel.find({ email, isDeleted: false });
+  return result;
+};
+
+const blockAnUser = async (email: string) => {
+  const result = await UserModel.findOneAndUpdate(
+    { email }, // Match the document where the email matches
+    {status: "blocked"}, // Apply the update
+    {
+      new: true, // Return the updated document
+      runValidators: true, // Run schema validators
+    },
+  );
+  return result;
+};
+
+const deleteAnUser = async (email: string) => {
+  const result = await UserModel.findOneAndUpdate(
+    { email }, // Match the document where the email matches
+    { isDeleted: true }, // Apply the update
+    {
+      new: true, // Return the updated document
+      runValidators: true, // Run schema validators
+    },
+  );
+  return result;
+};
+
 export const UserServices = {
   createUserIntoDB,
   findAllUsers,
+  getAnUser,
+  blockAnUser,
+  deleteAnUser,
 };

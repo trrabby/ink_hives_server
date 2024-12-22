@@ -3,6 +3,7 @@ import { UserServices } from './user.services';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import customizedMsg from '../../utils/customisedMsg';
+import { RequestHandler } from 'express';
 
 const createUser = catchAsync(async (req, res) => {
   const payload = req.body;
@@ -28,7 +29,47 @@ const AllUsers = catchAsync(async (req, res) => {
   });
 });
 
+const getAnUser: RequestHandler = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const result = await UserServices.getAnUser(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User has been retrieved successfully',
+    data: result,
+  });
+});
+
+const blockAnUser: RequestHandler = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const result = await UserServices.blockAnUser(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User blocked Successfully',
+    data: result,
+  });
+});
+
+const deleteAnUser: RequestHandler = catchAsync(async (req, res) => {
+  const { email } = req.params;
+  const result = await UserServices.deleteAnUser(email);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User Deleted Successfully',
+    data: result,
+  });
+});
+
 export const UserControllers = {
   createUser,
   AllUsers,
+  getAnUser,
+  blockAnUser,
+  deleteAnUser,
+
 };
