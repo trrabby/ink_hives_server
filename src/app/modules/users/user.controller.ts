@@ -3,7 +3,6 @@ import { UserServices } from './user.services';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import customizedMsg from '../../utils/customisedMsg';
-import { RequestHandler } from 'express';
 
 const createUser = catchAsync(async (req, res) => {
   const payload = req.body;
@@ -29,7 +28,7 @@ const AllUsers = catchAsync(async (req, res) => {
   });
 });
 
-const getAnUser: RequestHandler = catchAsync(async (req, res) => {
+const getAnUser = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const result = await UserServices.getAnUser(userId);
 
@@ -41,7 +40,7 @@ const getAnUser: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const blockAnUser: RequestHandler = catchAsync(async (req, res) => {
+const blockAnUser = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const result = await UserServices.blockAnUser(userId);
 
@@ -53,7 +52,7 @@ const blockAnUser: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const deleteAnUser: RequestHandler = catchAsync(async (req, res) => {
+const deleteAnUser = catchAsync(async (req, res) => {
   const { email } = req.params;
   const result = await UserServices.deleteAnUser(email);
 
@@ -71,5 +70,4 @@ export const UserControllers = {
   getAnUser,
   blockAnUser,
   deleteAnUser,
-
 };

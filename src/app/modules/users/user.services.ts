@@ -32,6 +32,7 @@ const findAllUsers = async (query: Record<string, unknown>) => {
     .sort()
     .paginate()
     .fields();
+
   const result = await userQuery.modelQuery;
   return result;
 };
@@ -44,7 +45,7 @@ const getAnUser = async (email: string) => {
 const blockAnUser = async (email: string) => {
   const result = await UserModel.findOneAndUpdate(
     { email }, // Match the document where the email matches
-    {status: "blocked"}, // Apply the update
+    { status: 'blocked' }, // Apply the update
     {
       new: true, // Return the updated document
       runValidators: true, // Run schema validators
